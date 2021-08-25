@@ -48,6 +48,19 @@ namespace WorkerServicesUsingEntityFramework.Services
             }
         }
 
-      
+        //Here is where we try to create the data that will be seeded into the database in the absence of any data in the database.
+        public void SeedData()
+        {
+            using (dbContext=new AppDbContext(GetAllOptions()))
+            {
+                //This is where we create the mock data
+                dbContext.Users.Add(new User
+                {
+                    Name = "Bayo",
+                    Address = "Fountain",
+                });
+                dbContext.SaveChanges();
+            }
+        }
     }
 }
