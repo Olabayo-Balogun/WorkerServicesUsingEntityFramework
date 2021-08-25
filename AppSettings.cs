@@ -12,5 +12,8 @@ namespace WorkerServicesUsingEntityFramework
     {
         //The properties of static classes should also be static which is what we're obeying below
         public static IConfiguration Configuration { get; set; }
+
+        //The property below help us come full circle with the connection string usage and mapping to the database.
+        public static string ConnectionString { get; set; }
     }
 }
