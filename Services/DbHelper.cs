@@ -15,8 +15,8 @@ namespace WorkerServicesUsingEntityFramework.Services
         private DbContextOptions<AppDbContext> GetAllOptions()
         {
             var optionBuilder= new DbContextOptionsBuilder<AppDbContext>();
-            //This is where we pass the connectionstrings to the database
-            optionBuilder.UseSqlServer("");
+            //This is where we pass the ConnectionStrings of the "AppSettings" class so we can map directly to the connection string in the "appsettings.json" file.
+            optionBuilder.UseSqlServer(AppSettings.ConnectionString);
             return optionBuilder.Options;
         }
 
