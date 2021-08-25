@@ -21,7 +21,10 @@ namespace WorkerServicesUsingEntityFramework
         {
             while (!stoppingToken.IsCancellationRequested)
             {
+                //The code below prints the text below every second.
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+
+                //The "Task.Delay" is what delays the messages for a second.
                 await Task.Delay(1000, stoppingToken);
             }
         }
