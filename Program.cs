@@ -14,7 +14,33 @@ namespace WorkerServicesUsingEntityFramework
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            //We split the build and the run method so the host is built, a database is created if it currently doesn't exist afterwhich we run the host.
+            IHost host = CreateHostBuilder(args).Build();
+
+            CreateDatabaseIfNotExist(host);
+
+            host.Run();
+            
+        }
+
+        //This is where we define the method that is called if a database doesn't exist when the program is 
+        private static void CreateDatabaseIfNotExist(IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<AppDbContext>();
+                    //The method below ensures that the database is created
+                    context.Database.EnsureCreated();
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
